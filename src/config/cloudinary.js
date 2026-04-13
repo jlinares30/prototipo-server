@@ -16,9 +16,9 @@ cloudinary.config({
 
 try {
     const result = await cloudinary.api.ping();
-    // logger.info("✅ ¡Conexión exitosa!", result);
+     console.log("✅ ¡Conexión exitosa!", result);
 } catch (error) {
-    // logger.error("❌ Error de autenticación:", error.message);
+     console.log("❌ Error de autenticación:", error.message);
 }
 
 export default cloudinary;

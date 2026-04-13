@@ -3,6 +3,7 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import express from 'express';
 import { supabase } from './src/config/supabaseClient.js';
+import cloudinary from './src/config/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,7 +23,11 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 async function start(){
-  try {    // Simulate an asynchronous operation (e.g., database connection)
+  try {
+    
+    const cloudRes = await cloudinary.api.ping();
+    
+    // Simulate an asynchronous operation (e.g., database connection)
     const { data, error } = await supabase.from('products').select('*');
     if (error) {
       console.error('Error fetching products:', error);
