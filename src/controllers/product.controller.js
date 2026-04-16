@@ -18,9 +18,12 @@ export const createProduct = async (req, res) => {
     .insert([{ 
       title, 
       price, 
-      category,
+      category_id: category,
       image_url: uploadRes.secure_url,
-      user_id: userId 
+      user_id: userId,
+      status: req.body.status || 'used',
+      available: true,
+      model_3d: req.body.model3d 
     }]);
 
   if (error) return res.status(400).json({ error: error.message });
