@@ -1,14 +1,10 @@
 import express from 'express';
-import { createProduct } from '../controllers/productController.js';
+import { createProduct, getAllProducts } from '../controllers/product.controller.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 router.post('/', authMiddleware, createProduct);
-router.get('/', async (req, res) => {
-    const { data, error } = await supabase.from('products').select('*');
-    if (error) return res.status(400).json(error);
-    res.json(data);
-});
+router.get('/', getAllProducts);
 
 export default router;

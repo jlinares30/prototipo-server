@@ -1,47 +1,25 @@
-import path, { dirname } from 'path';
-import cors from 'cors';
-import { fileURLToPath } from 'url';
-import express from 'express';
+import app from './src/server.js';
 import { supabase } from './src/config/supabaseClient.js';
 import cloudinary from './src/config/cloudinary.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const PORT = process.env.PORT || 3000;
 
-const app = express();
-
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use('/products', productRoutes);
-
-
-async function start(){
+async function start() {
   try {
-    
+    // Verificación de Servicios
     const cloudRes = await cloudinary.api.ping();
-    
-    // Simulate an asynchronous operation (e.g., database connection)
-    const { data, error } = await supabase.from('products').select('*');
-    if (error) {
-      console.error('Error fetching products:', error);
-    } else {
-      console.log('Products fetched successfully:', data);
-    }
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
+    console.log('✅ Cloudinary listo');
+
+    const { error } = await supabase.from('products').select('*').limit(1);
+    if (error) throw error;
+    console.log('✅ Supabase listo');
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor en http://localhost:${PORT}`);
     });
-  }
-  catch (error) {
-    console.error('Error to connect to Supabase:', error);
+  } catch (error) {
+    console.error('❌ Error al iniciar el sistema:', error.message);
+    process.exit(1);
   }
 }
 

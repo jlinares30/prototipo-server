@@ -29,3 +29,13 @@ export const createProduct = async (req, res) => {
   if (error) return res.status(400).json({ error: error.message });
   res.status(201).json(data);
 };
+
+export const getAllProducts = async (req, res) => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('available', true);
+
+  if (error) return res.status(400).json({ error: error.message });
+  res.json(data);
+};
