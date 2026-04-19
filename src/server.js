@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import productRoutes from './routes/productRoutes.js';
+import productRoutes from './routes/product.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,7 +18,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Rutas
 app.use('/products', productRoutes);
-// app.use('/auth', authRoutes); // Próximo paso
+app.use('/auth', authRoutes);
 
 export default app;
 
