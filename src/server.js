@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import meetingRoutes from './routes/meeting.routes.js';
 import reputationRoutes from './routes/reputation.routes.js';
+import reportRoutes from './routes/report.routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,6 +24,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/products', productRoutes);
 app.use('/meetings', meetingRoutes);
 app.use('/reputation', reputationRoutes);
+app.use('/reports', reportRoutes);
 app.use('/auth', authRoutes);
 
 export default app;
