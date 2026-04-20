@@ -5,7 +5,6 @@ export const authMiddleware = async (req, res, next) => {
   if (!token) return res.status(401).json({ error: 'No se proporcionó un token' });
 
   try {
-    // Esto verifica que el JWT sea válido y no haya expirado
     const { data: { user }, error } = await supabase.auth.getUser(token);
 
     if (error || !user) {

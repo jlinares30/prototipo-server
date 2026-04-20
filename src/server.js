@@ -3,7 +3,6 @@ import cors from 'cors';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import productRoutes from './routes/product.routes.js';
-import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import meetingRoutes from './routes/meeting.routes.js';
 import reputationRoutes from './routes/reputation.routes.js';
@@ -25,7 +24,7 @@ app.use('/products', productRoutes);
 app.use('/meetings', meetingRoutes);
 app.use('/reputation', reputationRoutes);
 app.use('/reports', reportRoutes);
-app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 export default app;
 

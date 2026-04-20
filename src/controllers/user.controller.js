@@ -1,7 +1,8 @@
 import { supabase } from '../config/supabaseClient.js';
 
 export const syncProfile = async (req, res) => {
-  const { id, email, name, career, cycle } = req.body;
+  const { name, career, cycle } = req.body;
+  const { id, email } = req.user;
 
   if (!email.endsWith('@upc.edu.pe')) {
     return res.status(403).json({ error: 'Solo se permiten correos de la UPC' });
